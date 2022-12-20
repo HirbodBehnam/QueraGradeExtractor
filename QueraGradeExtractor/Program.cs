@@ -55,6 +55,8 @@ internal class Program
 				// Dont update the delay if user didn't submitted this question
 				if (!int.TryParse(queraSheet.Cells[row, 4 + question * 5 + 4].Text, out int delay))
 					continue;
+				if (delay < 0) // fuckers let the assignment open
+					continue;
 				delay = (int) Math.Ceiling((double) (100 - delay) / 100 * TotalDelayHours);
 				int.TryParse(queraSheet.Cells[row, 4 + question * 5 + 2].Text, out int score);
 				submits.Delay = Math.Max(delay, submits.Delay);

@@ -40,7 +40,7 @@ internal class Program
 			gradesSheet.Cells[1, i].Value = "Q" + (i - 1);
 		gradesSheet.Cells[1, questionCount + 2].Value = "Delay";
 		// Read each user
-		for (var row = 3; row < queraSheet.Dimension.Rows; row++)
+		for (var row = 3; row <= queraSheet.Dimension.Rows; row++)
 		{
 			// Try parse the StdID
 			if (!ulong.TryParse(ToEnglishNumber(queraSheet.Cells[row, 2].Text), out ulong stdId))

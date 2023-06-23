@@ -5,11 +5,6 @@ namespace QueraGradeExtractor;
 
 internal class Program
 {
-	/// <summary>
-	/// Total delay hours for this assignment
-	/// </summary>
-	private const int TotalDelayHours = 48;
-
 	private class StudentSubmits
 	{
 		public int Delay { get; set; }
@@ -22,9 +17,18 @@ internal class Program
 		}
 	}
 
-	static void Main()
+	static void Main(string[] args)
 	{
 		ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+		// Load delay
+		if (args.Length < 1)
+		{
+			Console.WriteLine("Please pass the delay hours as first argument.");
+			return;
+		}
+
+		int totalDelayHours = int.Parse(args[0]);
+		Console.WriteLine($"Using {totalDelayHours} hours as delay");
 		// Load sheets
 		using var source = new ExcelPackage(new FileInfo("quera.xlsx"));
 		File.Delete("grades.xlsx");
@@ -57,7 +61,7 @@ internal class Program
 					continue;
 				if (delay < 0) // fuckers let the assignment open
 					continue;
-				delay = (int) Math.Ceiling((double) (100 - delay) / 100 * TotalDelayHours);
+				delay = (int) Math.Ceiling((double) (100 - delay) / 100 * totalDelayHours);
 				int.TryParse(queraSheet.Cells[row, 4 + question * 5 + 2].Text, out int score);
 				submits.Delay = Math.Max(delay, submits.Delay);
 				submits.Grade[question] = score;

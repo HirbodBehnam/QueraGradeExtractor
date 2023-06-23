@@ -27,6 +27,6 @@ Quera's excel report for an assignment must exist under the name of `quera.xlsx`
 
 ## Running
 
-Just open the program. It will do the conversion.
+Just open the program with delay hours as first argument. It will do the conversion.
 
 The output will be available in `grades.xlsx`.
